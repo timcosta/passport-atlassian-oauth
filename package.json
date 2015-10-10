@@ -1,0 +1,41 @@
+{
+  "name": "passport-atlassian-oauth",
+  "version": "0.0.2",
+  "description": "Atlassian Oauth authentication strategy for Passport.",
+  "author": {
+    "name": "Andreas Knecht",
+    "email": "knecht.andreas@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/knecht_andreas/passport-atlassian-oauth.git"
+  },
+  "main": "./lib/passport-atlassian-oauth",
+  "dependencies": {
+    "pkginfo": "0.2.x",
+    "passport-oauth": "~0.1.2"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "keywords": [
+    "passport",
+    "atlassian",
+    "oauth",
+    "auth",
+    "authn",
+    "authentication",
+    "identity"
+  ],
+  "devDependencies": {
+    "ejs": "^2.3.2",
+    "express": "^3.21.1",
+    "passport": "^0.2.2"
+  }
+}
