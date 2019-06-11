@@ -84,7 +84,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use(bodyParser({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(session({ secret:'keyboard cat', resave: false, saveUninitialized: false }));
 // Initialize Passport!  Also use passport.session() middleware, to support
