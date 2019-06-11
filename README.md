@@ -66,7 +66,7 @@ for incoming authentication.  Set the `consumer key` to the same value that you 
 Provide a matching RSA public key for the private key in use in your NodeJS application and finally configure a callback
 url that will redirect to `<NodeJS base URL>/auth/atlassian-oauth/callback` (given the example above). 
 
-To generate a usable private and public RSA key set you can use the following commands:
+To generate a usable private and public RSA key set you can use the following commands from [Jira knowledge base](https://confluence.atlassian.com/jirakb/how-to-generate-public-key-to-application-link-3rd-party-applications-913214098.html):
 
     openssl genrsa -out jira.pem 1024
     openssl rsa -in jira.pem -pubout -out jira.pub
