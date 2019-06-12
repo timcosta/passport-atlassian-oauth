@@ -1,8 +1,15 @@
 var express = require('express'),
     http = require('http'),
     passport = require('passport'),
-    util = require('util'),
-    AtlassianOAuthStrategy = require('../../').Strategy;
+    AtlassianOAuthStrategy = require('passport-atlassian-oauth').Strategy,
+    logger = require('morgan'),
+    session = require('express-session'),
+    path = require('path'),
+    cookieParser = require('cookie-parser'),
+    methodOverride = require('method-override'),
+    serveStatic = require('serve-static'),
+    router = express.Router(),
+    bodyParser = require('body-parser');
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -44,12 +51,12 @@ var RsaPublicKey = "-----BEGIN PUBLIC KEY-----\n" +
     "yLOfY8XZvnFkGjipvQIDAQAB\n" +
     "-----END PUBLIC KEY-----";
 
-
 // Use the AtlassianOauthStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, a token, tokenSecret, and Atlassian
 //   profile), and invoke a callback with a user object.
-passport.use(new AtlassianOAuthStrategy({
+passport.use(new AtlassianOAuthStrategy(
+    {
         applicationURL:"http://localhost:2990/jira",
         callbackURL:"http://localhost:5000/auth/atlassian-oauth/callback",
         consumerKey:"atlassian-oauth-sample",
@@ -72,22 +79,22 @@ passport.use(new AtlassianOAuthStrategy({
 var app = express();
 
 // configure Express
-app.configure(function () {
-    app.set('port', process.env.PORT || 5000);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'ejs');
-    app.use(express.logger());
-    app.use(express.cookieParser());
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.session({ secret:'keyboard cat' }));
-    // Initialize Passport!  Also use passport.session() middleware, to support
-    // persistent login sessions (recommended).
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.use(app.router);
-    app.use(express.static(__dirname + '/public'));
-});
+app.set('port', process.env.PORT || 5000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(logger('dev'));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(session({ secret:'keyboard cat', resave: false, saveUninitialized: false }));
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(router);
+app.use(serveStatic(__dirname + '/public'));
+
 
 
 app.get('/', function (req, res) {

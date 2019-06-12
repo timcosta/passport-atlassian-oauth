@@ -23,9 +23,9 @@ accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a applicationURL, consumerKey, and callback URL.
 
     passport.use(new AtlassianOAuthStrategy({
-            applicationURL:"http://localhost:2990/jira",
-            callbackURL:"http://localhost:5000/auth/atlassian-oauth/callback",
-            consumerKey:"atlassian-oauth-sample",
+            applicationURL:"http://localhost:2990/jira", // This is the Jira server url
+            callbackURL:"http://localhost:5000/auth/atlassian-oauth/callback", // Your node instance
+            consumerKey:"atlassian-oauth-sample", 
             consumerSecret:"<RSA private key>",
       },
       function(token, tokenSecret, profile, done) {
@@ -66,10 +66,16 @@ for incoming authentication.  Set the `consumer key` to the same value that you 
 Provide a matching RSA public key for the private key in use in your NodeJS application and finally configure a callback
 url that will redirect to `<NodeJS base URL>/auth/atlassian-oauth/callback` (given the example above). 
 
+To generate a usable private and public RSA key set you can use the following commands from [Jira knowledge base](https://confluence.atlassian.com/jirakb/how-to-generate-public-key-to-application-link-3rd-party-applications-913214098.html):
+
+    openssl genrsa -out jira.pem 1024
+    openssl rsa -in jira.pem -pubout -out jira.pub
+
 
 ## Examples
 
-For a complete, working example, refer to the [login example](https://bitbucket.org/knecht_andreas/passport-atlassian-oauth/src/master/examples/login).
+For a complete, working example, refer to the [login example](https://github.com/timcosta/passport-atlassian-oauth/tree/master/examples/login).
+You can `npm install` in that directory to set up express and dependencies, and `npm start` to start the server example script.
 
 ## Issues
 
