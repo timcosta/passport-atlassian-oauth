@@ -1,6 +1,6 @@
 {
   "name": "passport-atlassian",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Atlassian Oauth authentication strategy for Passport.",
   "author": {
     "name": "Andreas Knecht",
